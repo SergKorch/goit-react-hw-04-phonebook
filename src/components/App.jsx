@@ -38,10 +38,12 @@ const App = () => {
     setContacts(contacts.filter(item => item.id !== itemId));
   };
 
-  const normalizeFilter = filter.toLocaleLowerCase();
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.includes(normalizeFilter)
-  );
+  const visibleContacts = value => {
+    const normalizeFilter = value.toLowerCase();
+    return contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(normalizeFilter);
+    });
+  };
   return (
     <div className={s.phonebook}>
       <h1>Phonebook</h1>
@@ -49,10 +51,13 @@ const App = () => {
       <h2>Contacts</h2>
       <Filter
         title="Find contacts by name"
-        filter={normalizeFilter}
+        filter={filter}
         onChange={changeFilter}
       />
-      <ContactList contacts={visibleContacts} deleteContact={deleteContact} />
+      <ContactList
+        contacts={visibleContacts(filter)}
+        deleteContact={deleteContact}
+      />
     </div>
   );
 };
