@@ -21,7 +21,7 @@ const App = () => {
   const [filter, setFilter] = useState('');
 
   const addContacts = ({ name, number }) => {
-    const isContact = contacts.find(contact => contact.name === name);
+    const isContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
     if (isContact) {
       Notiflix.Notify.failure(`${name} is already in contact`);
       return contacts;
